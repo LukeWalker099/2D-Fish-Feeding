@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class Player : MonoBehaviour
     private int currentHealth;
     [SerializeField]
     private int maxHealth;
+    public RawImage health;
+    public RawImage health2;
 
     public float movSpeed;
 
@@ -23,11 +26,12 @@ public class Player : MonoBehaviour
     private void Start()
     {
         // Health Setup
-
         if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
         }
+
+        rb.gravityScale = 1;
 
         // Gets the Animation Component
         anim = GetComponent<Animator>();
@@ -39,8 +43,15 @@ public class Player : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
     }
 
+    private void Gravity()
+    {
+        rb.gravityScale = 0;
+    }
+
     private void FixedUpdate()
     {
+        Invoke("Gravity", 0.12f);
+
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             transform.Translate(Vector2.left * movSpeed * Time.deltaTime); // Move left
@@ -65,19 +76,27 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Fish"))
         {
-            Debug.Log("Hit!");
-            player.enabled = false;
-            sr.color = new Color(1f, 0f, 0f, 1); // Sets Player colour to Red on Hit
-            currentHealth -= 1; // Subtract 1 health on hit
-            StartCoroutine("spawnDelay"); // Delay player respawn 
-
+            if (other.transform.localScale.sqrMagnitude < transform.localScale.sqrMagnitude)
+            {
+                //add score
+                Destroy(other.gameObject);
+            }
+            else if (other.transform.localScale.sqrMagnitude > transform.localScale.sqrMagnitude)
+            {
+                player.enabled = false;
+                health2.enabled = false;
+                sr.color = new Color(1f, 0f, 0f, 1); // Sets Player colour to Red on Hit
+                currentHealth -= 1; // Subtract 1 health on hit
+                StartCoroutine("spawnDelay"); // Delay player respawn 
+            }
             if (currentHealth < 1)
             {
                 // Change to dead fish
+                health.enabled = false;
                 anim.SetBool("isDead", true);
                 StartCoroutine("colourDelay");
-                // open menu
 
+                // open menu
             }
         }
     }
@@ -97,6 +116,7 @@ public class Player : MonoBehaviour
     IEnumerator colourDelay()
     {
         yield return new WaitForSeconds(0.4f);
+        rb.gravityScale = 0.09f;
         sr.color = new Color(1f, 0f, 0f, 1); // Sets Player colour to Red on Hit
         player.enabled = false;
     }
