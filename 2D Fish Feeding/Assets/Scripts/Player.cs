@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     public Rigidbody2D rb;
     private SpriteRenderer sr;
     private Player player;
+    private Animator anim;
 
     [Header("Health")]
     [SerializeField]
@@ -28,8 +29,14 @@ public class Player : MonoBehaviour
             currentHealth = maxHealth;
         }
 
-        player = GetComponent<Player>(); // Gets the Player attatched to the GameObject
-        sr = GetComponent<SpriteRenderer>(); // Gets the SpriteRenderer attatched to the Player
+        // Gets the Animation Component
+        anim = GetComponent<Animator>();
+
+        // Gets the Player Component
+        player = GetComponent<Player>();
+
+        // Gets the Sprite Renderer component 
+        sr = GetComponent<SpriteRenderer>();
     }
 
     private void FixedUpdate()
@@ -63,19 +70,35 @@ public class Player : MonoBehaviour
             sr.color = new Color(1f, 0f, 0f, 1); // Sets Player colour to Red on Hit
             currentHealth -= 1; // Subtract 1 health on hit
             StartCoroutine("spawnDelay"); // Delay player respawn 
+
+            if (currentHealth < 1)
+            {
+                // Change to dead fish
+                anim.SetBool("isDead", true);
+                StartCoroutine("colourDelay");
+                // open menu
+
+            }
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        player.enabled = true;
-        sr.color = new Color(1f, 1f, 1f, 1); // Changes Player colour back to normal
+            player.enabled = true;
+            sr.color = new Color(1f, 1f, 1f, 1); // Changes Player colour back to normal
     }
 
     IEnumerator spawnDelay()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.3f);
         transform.position = originalPos;
+    }
+
+    IEnumerator colourDelay()
+    {
+        yield return new WaitForSeconds(0.4f);
+        sr.color = new Color(1f, 0f, 0f, 1); // Sets Player colour to Red on Hit
+        player.enabled = false;
     }
 
 }
