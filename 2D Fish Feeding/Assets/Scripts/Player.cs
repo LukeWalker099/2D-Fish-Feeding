@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public AudioSource munchSFX;
     public AudioSource predatorSFX;
     public AudioSource coinSFX;
+    public AudioSource jellySFX;
 
 
     private SpriteRenderer sr;
@@ -45,6 +46,11 @@ public class Player : MonoBehaviour
 
         // Gets the Sprite Renderer component 
         sr = GetComponent<SpriteRenderer>();
+    }
+
+    private void Update()
+    {
+        
     }
 
     private void FixedUpdate()
@@ -109,6 +115,7 @@ public class Player : MonoBehaviour
 
         if (other.gameObject.CompareTag("Jelly"))
         {
+            jellySFX.Play();
             movSpeed = 1.5f;
         }
     }
@@ -117,7 +124,8 @@ public class Player : MonoBehaviour
     {
             player.enabled = true;
             sr.color = new Color(1f, 1f, 1f, 1); // Changes Player colour back to normal
-        movSpeed = 5;
+            movSpeed = 5;
+        jellySFX.Stop();
     }
 
     IEnumerator spawnDelay()
