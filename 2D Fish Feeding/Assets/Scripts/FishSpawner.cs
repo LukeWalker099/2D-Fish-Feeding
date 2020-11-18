@@ -9,8 +9,11 @@ public class FishSpawner : MonoBehaviour
 
     // Fish Spawner
     public GameObject predatorSpawner;
+    public GameObject predatorLeftSpawner;
     public GameObject preySpawner;
     public GameObject preyLeftSpawner;
+    public GameObject preyLeftTwoSpawner;
+    public GameObject preyRightSpawner;
 
     // Jelly Fish Spawner
     public GameObject jellyfishSpawner;
@@ -27,6 +30,10 @@ public class FishSpawner : MonoBehaviour
         InvokeRepeating("spawnPrey", Random.Range(1, 6), Random.Range(4, 9));
         InvokeRepeating("spawnPreyLeft", Random.Range(1, 6), Random.Range(6, 12));
         InvokeRepeating("spawnJellyFish", Random.Range(1, 3), Random.Range(14, 22));
+        InvokeRepeating("spawnPredatorLeft", Random.Range(8, 10), Random.Range(18, 24));
+        InvokeRepeating("spawnPreyLeftTwo", Random.Range(1, 6), Random.Range(6, 15));
+        InvokeRepeating("spawnPreyRight", Random.Range(3, 6), Random.Range(12, 16));
+
     }
 
     private void spawnPredator()
@@ -42,6 +49,21 @@ public class FishSpawner : MonoBehaviour
     private void spawnPreyLeft()
     {
         Instantiate(preyLeftSpawner, new Vector2(9.7f, 2.35f), Quaternion.identity);
+    }
+
+   private void spawnPreyLeftTwo()
+    {
+        Instantiate(preyLeftTwoSpawner, new Vector2(9.50f, -3.4f), Quaternion.identity);
+    }
+
+    private void spawnPreyRight()
+    {
+        Instantiate(preyRightSpawner, new Vector2(-9.50f, -3.9f), Quaternion.identity);
+    }
+
+    private void spawnPredatorLeft()
+    {
+        Instantiate(predatorLeftSpawner, new Vector2(10f, -2.03f), Quaternion.identity);
     }
 
     private void spawnJellyFish()

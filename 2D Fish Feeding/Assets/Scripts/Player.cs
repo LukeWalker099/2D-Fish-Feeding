@@ -5,7 +5,12 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    public Rigidbody2D rb;
+    [Header("Audio")]
+    public AudioSource munchSFX;
+    public AudioSource predatorSFX;
+    public AudioSource coinSFX;
+
+
     private SpriteRenderer sr;
     private Player player;
     private Animator anim;
@@ -19,6 +24,7 @@ public class Player : MonoBehaviour
     public RawImage health2;
 
     public float movSpeed;
+    public Rigidbody2D rb;
 
     private Vector2 originalPos = new Vector2(0, 0);
 
@@ -31,8 +37,6 @@ public class Player : MonoBehaviour
             currentHealth = maxHealth;
         }
 
-        rb.gravityScale = 1;
-
         // Gets the Animation Component
         anim = GetComponent<Animator>();
 
@@ -43,15 +47,8 @@ public class Player : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
     }
 
-    private void Gravity()
-    {
-        rb.gravityScale = 0;
-    }
-
     private void FixedUpdate()
     {
-        Invoke("Gravity", 0.12f);
-
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             transform.Translate(Vector2.left * movSpeed * Time.deltaTime); // Move left
@@ -79,7 +76,7 @@ public class Player : MonoBehaviour
         if (other.gameObject.CompareTag("Coin"))
         {
             // Add Bonus for multiple fish eaten?
-            // Play Audio
+            coinSFX.Play();
             GameManager.goldValue += 5;
             Destroy(other.gameObject);
         }
@@ -88,12 +85,13 @@ public class Player : MonoBehaviour
         {
             if (other.transform.localScale.sqrMagnitude < transform.localScale.sqrMagnitude)
             {
-                // Play Audio
+                munchSFX.Play();
                 GameManager.scoreValue += 1;
                 Destroy(other.gameObject);
             }
             else if (other.transform.localScale.sqrMagnitude > transform.localScale.sqrMagnitude)
             {
+                predatorSFX.Play();
                 player.enabled = false;
                 health2.enabled = false;
                 sr.color = new Color(1f, 0f, 0f, 1); // Sets Player colour to Red on Hit
@@ -102,13 +100,16 @@ public class Player : MonoBehaviour
             }
             if (currentHealth < 1)
             {
-                // Change to dead fish
                 health.enabled = false;
                 anim.SetBool("isDead", true);
                 StartCoroutine("colourDelay");
-
                 // open menu
             }
+        }
+
+        if (other.gameObject.CompareTag("Jelly"))
+        {
+            movSpeed = 1.5f;
         }
     }
 
@@ -116,6 +117,7 @@ public class Player : MonoBehaviour
     {
             player.enabled = true;
             sr.color = new Color(1f, 1f, 1f, 1); // Changes Player colour back to normal
+        movSpeed = 5;
     }
 
     IEnumerator spawnDelay()
@@ -126,10 +128,10 @@ public class Player : MonoBehaviour
 
     IEnumerator colourDelay()
     {
-        yield return new WaitForSeconds(0.4f);
-        rb.gravityScale = 0.09f;
+        yield return new WaitForSeconds(0.42f);
+        gameObject.GetComponent<Player>().enabled = false;
         sr.color = new Color(1f, 0f, 0f, 1); // Sets Player colour to Red on Hit
-        player.enabled = false;
+        Time.timeScale = 0.15f;
     }
 
 }

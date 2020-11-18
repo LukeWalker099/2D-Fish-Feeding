@@ -7,6 +7,7 @@ public class Predator : MonoBehaviour
     public Transform trans;
     private SpriteRenderer sr;
     public Rigidbody2D rb;
+    
 
     public float horizontalSpeed;
     public float verticalSpeed;

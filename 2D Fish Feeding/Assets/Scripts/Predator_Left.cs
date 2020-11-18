@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Prey_Left : MonoBehaviour
+public class Predator_Left : MonoBehaviour
 {
     public Transform trans;
     private SpriteRenderer sr;
@@ -40,13 +40,13 @@ public class Prey_Left : MonoBehaviour
         }
 
         // Checks if the position of the Prey is greater than or equal (to the given value) and if so, sets the direction down to true
-        if (trans.position.y >= 2.35)
+        if (trans.position.y >= -1.55)
         {
             dirDown = true;
         }
 
         // If the position is not that of above, then the direction is set to false
-        else if (trans.position.y <= 1.8)
+        else if (trans.position.y <= -2.20)
         {
             dirDown = false;
         }
@@ -71,3 +71,4 @@ public class Prey_Left : MonoBehaviour
         }
     }
 }
+
