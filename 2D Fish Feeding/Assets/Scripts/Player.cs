@@ -48,11 +48,6 @@ public class Player : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
     }
 
-    private void Update()
-    {
-        
-    }
-
     private void FixedUpdate()
     {
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
