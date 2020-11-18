@@ -7,6 +7,11 @@ TagManager:
   - Fish
   - Coin
   - Jelly
+  - RightBottom
+  - RightTop
+  - LeftTop
+  - LeftBottom
+  - Start
   layers:
   - Default
   - TransparentFX

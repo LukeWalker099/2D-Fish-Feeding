@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public AudioSource clickSFX;
+
+
     [Header("Collectable")]
     public Text goldText;
     public static int goldValue;
@@ -20,5 +24,8 @@ public class GameManager : MonoBehaviour
         goldText.text = "" + goldValue;
     }
 
-
+    public void loadLevel()
+    {
+        SceneManager.LoadScene(1);
+    }
 }
