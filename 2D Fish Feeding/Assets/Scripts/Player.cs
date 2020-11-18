@@ -74,11 +74,22 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        // Coin pick-up
+
+        if (other.gameObject.CompareTag("Coin"))
+        {
+            // Add Bonus for multiple fish eaten?
+            // Play Audio
+            GameManager.goldValue += 5;
+            Destroy(other.gameObject);
+        }
+
         if (other.gameObject.CompareTag("Fish"))
         {
             if (other.transform.localScale.sqrMagnitude < transform.localScale.sqrMagnitude)
             {
-                //add score
+                // Play Audio
+                GameManager.scoreValue += 1;
                 Destroy(other.gameObject);
             }
             else if (other.transform.localScale.sqrMagnitude > transform.localScale.sqrMagnitude)

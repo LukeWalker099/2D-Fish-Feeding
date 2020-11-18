@@ -11,8 +11,8 @@ public class FishSpawner : MonoBehaviour
     private void Start()
     {
         InvokeRepeating("spawnPredator", Random.Range(6, 9), Random.Range(14, 25));
-        InvokeRepeating("spawnPrey", Random.Range(1, 6), Random.Range(12, 18));
-        InvokeRepeating("spawnPreyLeft", Random.Range(1, 6), Random.Range(9, 18));
+        InvokeRepeating("spawnPrey", Random.Range(1, 6), Random.Range(4, 9));
+        InvokeRepeating("spawnPreyLeft", Random.Range(1, 6), Random.Range(6, 12));
     }
 
     private void spawnPredator()
