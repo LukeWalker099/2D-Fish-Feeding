@@ -18,7 +18,7 @@ public class CoinSpawner : MonoBehaviour
 
     private void Start()
     {
-        InvokeRepeating("spawnCoins", Random.Range(1, 3), Random.Range(14, 26));
+        InvokeRepeating("spawnCoins", Random.Range(1, 3), Random.Range(10, 20));
     }
 
     private void spawnCoins()

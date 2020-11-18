@@ -11,16 +11,15 @@ public class Player : MonoBehaviour
     public AudioSource coinSFX;
     public AudioSource jellySFX;
 
-
+    [Header("")]
+    public GameObject deathScreen;
     private SpriteRenderer sr;
     private Player player;
     private Animator anim;
 
     [Header("Health")]
-    [SerializeField]
-    private int currentHealth;
-    [SerializeField]
-    private int maxHealth;
+    public int currentHealth;
+    public int maxHealth;
     public RawImage health;
     public RawImage health2;
 
@@ -101,10 +100,10 @@ public class Player : MonoBehaviour
             }
             if (currentHealth < 1)
             {
+                deathScreen.SetActive(true);
                 health.enabled = false;
                 anim.SetBool("isDead", true);
                 StartCoroutine("colourDelay");
-                // open menu
             }
         }
 
@@ -112,6 +111,7 @@ public class Player : MonoBehaviour
         {
             jellySFX.Play();
             movSpeed = 1.5f;
+            sr.color = new Color(0f, 0f, 1f, 1);
         }
     }
 
@@ -120,7 +120,7 @@ public class Player : MonoBehaviour
             player.enabled = true;
             sr.color = new Color(1f, 1f, 1f, 1); // Changes Player colour back to normal
             movSpeed = 5;
-        jellySFX.Stop();
+            jellySFX.Stop();
     }
 
     IEnumerator spawnDelay()
@@ -134,7 +134,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(0.42f);
         gameObject.GetComponent<Player>().enabled = false;
         sr.color = new Color(1f, 0f, 0f, 1); // Sets Player colour to Red on Hit
-        Time.timeScale = 0.15f;
+        Time.timeScale = 0.09f;
     }
 
 }

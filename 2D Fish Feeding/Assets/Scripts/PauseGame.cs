@@ -60,6 +60,15 @@ public class PauseGame : MonoBehaviour
 
     public void LoadMainMenu()
     {
+        if (GameManager.scoreValue > PlayerPrefs.GetInt("highscore"))
+        {
+            PlayerPrefs.SetInt("highscore", GameManager.scoreValue);
+        }
+        if (GameManager.goldValue > PlayerPrefs.GetInt("coinhighscore"))
+        {
+            PlayerPrefs.SetInt("coinhighscore", GameManager.goldValue);
+        }
+        Time.timeScale = 1;
         SceneManager.LoadScene(0);
     }
 
@@ -71,4 +80,5 @@ public class PauseGame : MonoBehaviour
         Time.timeScale = 1;
         isGamePaused = false;
     }
+    
 }
