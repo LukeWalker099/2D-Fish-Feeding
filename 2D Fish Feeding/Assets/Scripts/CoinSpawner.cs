@@ -4,38 +4,33 @@ using UnityEngine;
 
 public class CoinSpawner : MonoBehaviour
 {
-    public int numberToSpawn;
-    public List<GameObject> spawnPool;
+    private float screenX;
+    private float screenY;
 
+    public GameObject coinPrefab;
+
+
+    public void Awake()
+    {
+        screenX = Random.Range(-4.45f, 6f);
+        screenY = Random.Range(6.45f, 8.32f);
+    }
 
     private void Start()
     {
-        InvokeRepeating("spawnCoin", Random.Range(2f, 4f), Random.Range(16f, 30f));
+        InvokeRepeating("spawnCoins", Random.Range(1, 3), Random.Range(14, 26));
     }
 
-    public void spawnCoin()
+    private void spawnCoins()
     {
-        int randomItem = 0;
-        GameObject coinPrefab;
-
-        float screenX, screenY;
-        Vector2 pos;
-
-        for (int i = 0; i < numberToSpawn; i++)
-        {
-            randomItem = Random.Range(0, spawnPool.Count);
-            coinPrefab = spawnPool[randomItem];
-
-            screenX = Random.Range(-7.5f, 7f);
-            screenY = Random.Range(6.45f, 14.30f);
-            pos = new Vector2(screenX, screenY);
-
-            Instantiate(coinPrefab, pos, coinPrefab.transform.rotation);
-        }
-
+        GameObject a = Instantiate(coinPrefab) as GameObject;
+        a.transform.position = new Vector2(Random.Range(screenX * -1, 5.45f), screenY);
     }
-
 }
+
+
+
+
 
 
 

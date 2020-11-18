@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1983452812190324975}
   - component: {fileID: 2316526207522435717}
   - component: {fileID: 53936732372657890}
+  - component: {fileID: 8603702223271525740}
   m_Layer: 0
   m_Name: Prey Small
   m_TagString: Fish
@@ -159,3 +160,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8603702223271525740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53936732372657901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10c649cfc2a7c8b438268609bb8f3fd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

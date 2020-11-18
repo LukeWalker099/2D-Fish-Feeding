@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Fish
   - Coin
+  - Jelly
   layers:
   - Default
   - TransparentFX
